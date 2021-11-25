@@ -13,13 +13,13 @@ const swaggerOptions = {
       title: "Customer API",
       description: "Customer API Information",
       contact: {
-        name: "Amazing Developer"
+        name: "Amazing Developer",
       },
-      servers: ["http://localhost:5000"]
-    }
+      servers: ["http://localhost:5000"],
+    },
   },
   // ['.routes/*.js']
-  apis: ["app.js"]
+  apis: ["app.js"],
 };
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
@@ -28,35 +28,55 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 // Routes
 /**
  *  @swagger
- *  /customers:
+ *  /WeatherForecastController:
  *    get:
- *      description: Use to request all customers
+ *      description: Use to request all weather data
  *      responses:
  *        '200':
  *          description: A successful response
  */
 
-app.get("/customers", (req, res) => {
-  console.log("request");
-  res.status(200).send("Customer results");
+app.get("/WeatherForecastController", (req, res) => {
+  function getRandomArbitrary(min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
+  }
+  temperatureC = getRandomArbitrary(-20, 55);
+  var currentdate = new Date();
+  var datetime =
+    "Last Sync: " +
+    currentdate.getDate() +
+    "/" +
+    (currentdate.getMonth() + 1) +
+    "/" +
+    currentdate.getFullYear() +
+    " @ " +
+    currentdate.getHours() +
+    ":" +
+    currentdate.getMinutes() +
+    ":" +
+    currentdate.getSeconds();
+
+  const weatherData = {
+    forecast: [
+      "Freezing",
+      "Bracing",
+      "Chilly",
+      "Cool",
+      "Mild",
+      "Warm",
+      "Balmy",
+      "Hot",
+      "Sweltering",
+      "Scorching",
+    ],
+    temperature: (temperatureC = getRandomArbitrary(-20, 55)),
+    date: datetime,
+  };
+
+  console.log(weatherData);
+
+  res.status(200).send(weatherData);
 });
-
-// Routes
-/**
- *  @swagger
- *  /customer:
- *    put:
- *      description: Use to update a customer
- *      responses:
- *        '201':
- *          description: A successful response
- */
-
-app.put("/customer", (req, res) => {
-  console.log("request");
-  res.status(200).send("Successfully Updated Customer");
-});
-
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
