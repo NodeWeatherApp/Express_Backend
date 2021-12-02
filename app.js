@@ -3,6 +3,9 @@ const app = express();
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 
+var cors = require('cors');
+app.use(cors());
+
 const port = process.env.PORT || 5000;
 
 // Extended: https://swagger.io/specification/#infoObject
@@ -24,6 +27,16 @@ const swaggerOptions = {
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
+const { createProxyMiddleware } = require('http-proxy-middleware');
+app.use('/api', createProxyMiddleware({ 
+  target: 'http://localhost:3000/', //original url
+  changeOrigin: true, 
+  //secure: false,
+  onProxyRes: function (proxyRes, req, res) {
+     proxyRes.headers['Access-Control-Allow-Origin'] = '*';
+  }
+}));
 
 // Routes
 /**
