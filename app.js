@@ -16,7 +16,7 @@ const swaggerOptions = {
       title: "Customer API",
       description: "Customer API Information",
       contact: {
-        name: "Amazing Developer",
+        name: "Deion Shallenberger",
       },
       servers: ["http://localhost:5000"],
     },
@@ -69,22 +69,31 @@ app.get("/WeatherForecastController", (req, res) => {
     ":" +
     currentdate.getSeconds();
 
-  const weatherData = {
-    forecast: [
-      "Freezing",
-      "Bracing",
-      "Chilly",
-      "Cool",
-      "Mild",
-      "Warm",
-      "Balmy",
-      "Hot",
-      "Sweltering",
-      "Scorching",
-    ],
-    temperature: (temperatureC = getRandomArbitrary(-20, 55)),
-    date: datetime,
-  };
+  var forecast = [
+    "Freezing",
+    "Bracing",
+    "Chilly",
+    "Cool",
+    "Mild",
+    "Warm",
+    "Balmy",
+    "Hot",
+    "Sweltering",
+    "Scorching",
+  ];
+
+  function getRandomForecast(min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
+  }
+
+  const weatherData = [
+    {
+    "id" : 1,
+    "forecast": (forecast[getRandomForecast(0,forecast.length)]),
+    "temperature": (temperatureC = getRandomArbitrary(-20, 55)),
+    "date": datetime,
+  }
+  ];
 
   console.log(weatherData);
 
