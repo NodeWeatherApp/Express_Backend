@@ -35,19 +35,30 @@ router.use(bodyParser.urlencoded({ extended: true }));
 
 router.post("/create", userController.user_create_post);
 
+//Swagger Doc POST User Login API
 /**
  *  @swagger
  *  /user/login:
  *    post:
- *      description: Login User
+ *      consumes:
+ *          - application/x-www-form-urlencoded
+ *      description: User Login.
+ *      parameters:
+ *        - in: formData
+ *          name: username
+ *          type: string
+ *          required: true
+ *          description: username
+ *        - in: formData
+ *          name: password
+ *          type: string
+ *          required: true
+ *          description: password
  *      responses:
  *        '200':
- *          description: A successful response
+ *          description: OK
  */
 
-router.post("/login", (req, res) => {
-
-  res.status(204).send(`Username: ${firstname} Password: ${lastname}`);
-});
+router.post("/login", userController.user_login_post);
 
 module.exports = router;
