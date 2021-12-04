@@ -1,4 +1,5 @@
 const express = require('express');
+const userController = require('../controllers/userController');
 
 const router = express.Router();
 
@@ -31,15 +32,8 @@ router.use(bodyParser.urlencoded({ extended: true }));
  *        '200':
  *          description: OK
  */
-const users = [];
 
-router.post("/create", (req, res) => {
-  const user = {username: req.body.username, password: req.body.password }
-  users.push(user);
-  console.log(users);
-
-  res.status(201).send('Success');
-});
+router.post("/create", userController.user_create_post);
 
 /**
  *  @swagger
