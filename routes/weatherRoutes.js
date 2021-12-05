@@ -14,6 +14,7 @@ const router = express.Router();
  *          description: A successful response
  */
 
-  router.get("/data", weatherController.weather_data_get);
+ // route GET and POST weather data
+// router.route("/data").get(weatherController.weather_data_get).post(weatherController.weather_data_post);
 
-  module.exports = router;
+module.exports = router;

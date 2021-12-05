@@ -4,10 +4,11 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 
+// parse json bodies in request object
+app.use(express.json()); 
+
 // swagger docs
-const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
-const swaggerDocs = swaggerJsDoc(swaggerOptions);
 const swaggerOptions = {
   swaggerDefinition: {
     info: {
@@ -23,6 +24,8 @@ const swaggerOptions = {
   },
   apis: ['./routes/*.js'],
 };
+const swaggerJsDoc = require("swagger-jsdoc");
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // cors
@@ -42,7 +45,6 @@ app.use(
     },
   })
 );
-app.use(express.json()); // parse json bodies in request object
 
 // weather routes
 const weatherRoutes = require('./routes/weatherRoutes');

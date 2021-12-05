@@ -1,7 +1,7 @@
 const express = require('express');
-const userController = require('../controllers/userController');
-
 const router = express.Router();
+
+const userController = require('../controllers/userController');
 
 var bodyParser = require('body-parser');
 // support json encoded bodies
@@ -12,12 +12,17 @@ router.use(bodyParser.urlencoded({ extended: true }));
 //Swagger Doc POST CreateUser API
 /**
  *  @swagger
- *  /user/create:
+ *  /user/signUp:
  *    post:
  *      consumes:
  *          - application/x-www-form-urlencoded
  *      description: Create a user's login credentials.
  *      parameters:
+ *        - in: formData
+ *          name: email
+ *          type: string
+ *          required: true
+ *          description: email
  *        - in: formData
  *          name: username
  *          type: string
@@ -33,7 +38,19 @@ router.use(bodyParser.urlencoded({ extended: true }));
  *          description: OK
  */
 
-router.post("/create", userController.user_create_post);
+router.post("/signUp", userController.user_create);
+
+// //Swagger Doc POST CreateUser API
+// /**
+//  *  @swagger
+//  *  /user/retreive:
+//  *    get:
+//  *      summary: Get all users;
+//  *    -in
+//  */
+
+ router.get("/retrieve", userController.user_get_all);
+
 
 //Swagger Doc POST User Login API
 /**
@@ -45,10 +62,10 @@ router.post("/create", userController.user_create_post);
  *      description: User Login.
  *      parameters:
  *        - in: formData
- *          name: username
+ *          name: email
  *          type: string
  *          required: true
- *          description: username
+ *          description: email
  *        - in: formData
  *          name: password
  *          type: string
@@ -59,6 +76,15 @@ router.post("/create", userController.user_create_post);
  *          description: OK
  */
 
-router.post("/login", userController.user_login_post);
+router.post("/login", userController.user_login);
+//Swagger Doc POST CreateUser API
+/**
+ *  @swagger
+ *  components:
+ *    schemas:
+ *      User:
+ *          type: object
+ */
+
 
 module.exports = router;
