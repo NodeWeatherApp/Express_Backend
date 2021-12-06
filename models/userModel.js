@@ -29,19 +29,38 @@ class User {
             "${createdAtDate}"
         );`;
 
-    return db.execute(sql);
+    db.execute(sql);
+    return {user: {email: this.email, username: this.username, password: this.password, created_at: createdAtDate}};
   }
 
+  //make repository layer
+
   static login(email, password) {
-    let sql = 'SELECT * FROM accounts WHERE email = ? AND password = ?', [email, password];
-    console.log(sql);
-    return db.execute(sql);
+    const login = db.execute(
+      'SELECT * FROM `users` WHERE `email` = ? AND `password` = ?',
+      [`${email}`,`${password}`], function(err, result){
+        console.log('here');
+        if(err) throw err;
+        if(result.length == 0) {
+          const error = Error('User not found');
+          throw error;
+        }
+      }
+    );
+    
+    
+    return login;
   }
 
   static findAll() {
     let sql = "SELECT * FROM users;";
 
     return db.execute(sql);
+  }
+
+  static findOne(email) {
+    return db.execute('SELECT * FROM `users` WHERE `email` = ?;',
+    [`${email}`]);
   }
 
   static findById(id) {

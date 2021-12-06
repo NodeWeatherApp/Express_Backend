@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
+// Import Routes
 const userController = require('../controllers/userController');
 
 var bodyParser = require('body-parser');
@@ -9,7 +10,7 @@ router.use(bodyParser.json());
 // support encoded bodies
 router.use(bodyParser.urlencoded({ extended: true })); 
 
-
+// Middleware
 router.post("/signUp", userController.user_create);
 
 router.get("/retrieve", userController.user_get_all);
