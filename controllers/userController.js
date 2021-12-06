@@ -7,12 +7,12 @@ const { signUpValidation, loginValidation } = require("../validation");
 
 exports.user_create = async (req, res, next) => {
   try {
-    // Validate Data for User Creation
+    // Validate data for user creation
     signUpValidation(req.body);
-    let { email, username, password } = req.body;
+    const { email, username, password } = req.body;
 
     // Check if the user is already in the database
-    const [foundUser, _] = await User.findOne(req.body.email);
+    const [foundUser, _] = await User.findOne(email);
     if (foundUser.length > 0)
       return res.status(400).send({ error: "Email already exists" });
 
@@ -55,18 +55,22 @@ exports.user_get_by_id = async (req, res, next) => {
 
 exports.user_login = async (req, res, next) => {
   try {
-    let { email, password } = req.body;
-    let [login, _] = await User.login(email, password);
+    // Validate response body
+    loginValidation(req.body);
 
-    res.status(201).json({ login_status: "login successful", info: login });
+    // Check if the email exists
+    let { email, password } = req.body;
+    const [user, _] = await User.findOne(email);
+    if (user.length === 0)
+      return res.status(400).send({ error: "Email is not found" });
+
+    // Check if password is correct
+    const validPass = await bcrypt.compare(password, user[0].password);
+    if (!validPass) return res.status(400).send({ error: "password is wrong" });
+
+    res.status(201).json({ login_status: "login successful", info: user });
   } catch (error) {
     console.log(error);
     next(error);
   }
-
-  // let user_found = users.filter((user) => user.email == email && user.password);
-  // console.log(user_found);
-  // user_found.length >= 1
-  //   ? res.status(200).send(`Email: ${email} Password: ${password}`)
-  //   : res.status(400).send("Error");
 };

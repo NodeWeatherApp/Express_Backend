@@ -35,23 +35,6 @@ class User {
 
   //make repository layer
 
-  static login(email, password) {
-    const login = db.execute(
-      'SELECT * FROM `users` WHERE `email` = ? AND `password` = ?',
-      [`${email}`,`${password}`], function(err, result){
-        console.log('here');
-        if(err) throw err;
-        if(result.length == 0) {
-          const error = Error('User not found');
-          throw error;
-        }
-      }
-    );
-    
-    
-    return login;
-  }
-
   static findAll() {
     let sql = "SELECT * FROM users;";
 
