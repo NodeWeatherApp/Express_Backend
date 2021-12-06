@@ -7,27 +7,10 @@ const app = express();
 // parse json bodies in request object
 app.use(express.json()); 
 
-// swagger docs
-const swaggerUi = require("swagger-ui-express");
-const swaggerOptions = {
-  swaggerDefinition: {
-    info: {
-      version: "1.0.0",
-      title: "Customer API",
-      description: "Customer API Information",
-      contact: {
-        name: "Deion Shallenberger",
-        email: "deion.shallenberger.170@my.csun.edu"
-      },
-      servers: ["http://localhost:5000"],
-    },
-  },
-  apis: ['./routes/*.js'],
-};
-const swaggerJsDoc = require("swagger-jsdoc");
-const swaggerDocs = swaggerJsDoc(swaggerOptions);
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-
+// swagger autogen
+const swaggerUi = require('swagger-ui-express')
+const swaggerFile = require('./swagger_output.json')
+app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 // cors
 var cors = require("cors");
 app.use(cors());
