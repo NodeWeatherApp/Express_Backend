@@ -4,7 +4,7 @@ const swaggerAutogen = require("swagger-autogen")();
 
 const doc = {
   info: {
-    version: "1.0.0",
+    version: "1.8.3",
     title: "Customer API",
     description: "Customer API Information",
     contact: {
@@ -14,16 +14,27 @@ const doc = {
   },
   host: "localhost:3000",
   basePath: "/",
-  schemes: ['http', 'https'],
-  consumes: ['application/json','application/x-www-form-urlencoded'],
-  produces: ['application/json','application/x-www-form-urlencoded'],
+  schemes: ["http"],
+  consumes: ["application/json", "application/x-www-form-urlencoded"],
+  produces: ["application/json", "application/x-www-form-urlencoded"],
+  securityDefinitions: {
+    Bearer: {
+      type: "apiKey",
+      description: "Value: bearerAuth {jwt}",
+      in: "header",
+      name: "auth-token",
+      scheme: "bearer",
+      bearerFormat: "JWT",
+    },
+  },
+  security: [{ "Bearer": ["./routes/*.js"] }],
   definitions: {
     User: {
       email: "testswagger@getMaxListeners.com",
       username: "deion",
       password: "test123",
-    }
-  }
+    },
+  },
 };
 
 const outputFile = "./swagger_output.json";

@@ -1,5 +1,6 @@
 const User = require("../models/userModel");
 const { response } = require("express");
+const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
 // Validation
@@ -68,7 +69,9 @@ exports.user_login = async (req, res, next) => {
     const validPass = await bcrypt.compare(password, user[0].password);
     if (!validPass) return res.status(400).send({ error: "password is wrong" });
 
-    res.status(201).json({ login_status: "login successful", info: user });
+    // Create and assign a token
+    const token = jwt.sign({ _id: user[0].id }, process.env.TOKEN_SECRET);
+    res.header('auth-token', token).send(token);
   } catch (error) {
     console.log(error);
     next(error);
