@@ -1,41 +1,30 @@
+// allows env variables to be set on process.env
+require("dotenv").config(); 
+
 const express = require("express");
 const app = express();
-const port = process.env.PORT || 5000;
 
 const { createProxyMiddleware } = require("http-proxy-middleware");
-var cors = require("cors");
 
-const userRoutes = require('./routes/userRoutes.js');
+// Import Routes
 const weatherRoutes = require('./routes/weatherRoutes');
+const userRoutes = require('./routes/userRoutes.js');
 
-app.use(express.json());
-
-const swaggerJsDoc = require("swagger-jsdoc");
-const swaggerUi = require("swagger-ui-express");
-
-
-const swaggerOptions = {
-  swaggerDefinition: {
-    info: {
-      version: "1.0.0",
-      title: "Customer API",
-      description: "Customer API Information",
-      contact: {
-        name: "Deion Shallenberger",
-        email: "deion.shallenberger.170@my.csun.edu"
-      },
-      servers: ["http://localhost:5000"],
-    },
-  },
-  apis: ['./routes/*.js'],
-};
-
-const swaggerDocs = swaggerJsDoc(swaggerOptions);
-
+// Swagger-Autogen
+const swaggerUi = require('swagger-ui-express')
+const swaggerFile = require('./swagger_output.json')
+app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 // cors
+var cors = require("cors");
 app.use(cors());
 
-// middleware
+// Middleware
+app.use(express.json()); 
+
+app.use('/weather',weatherRoutes);
+
+app.use('/user',userRoutes);
+
 app.use(
   "/api",
   createProxyMiddleware({
@@ -48,16 +37,8 @@ app.use(
   })
 );
 
-// swagger docs
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-
-// weather routes
-app.use('/weather',weatherRoutes);
-
-// user routes
-app.use('/user',userRoutes);
-
-// server port
+// listen on port
+const port = process.env.PORT || 5000;
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
