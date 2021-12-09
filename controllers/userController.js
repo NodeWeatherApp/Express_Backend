@@ -76,10 +76,30 @@ exports.user_login = async (req, res, next) => {
     console.log(error);
     next(error);
   }
-<<<<<<< HEAD
 };
 
 // delete user
-=======
+};
 
->>>>>>> 7c0df7c931e713579bfbd7cc8a39aa936cc9ddd0
+exports.user_login = async (req, res, next) => {
+  try {
+    // Validate response body
+    loginValidation(req.body);
+
+    // Check if the email exists
+    let { email, password } = req.body;
+    const [user, _] = await User.findOne(email);
+    if (user.length === 0)
+      return res.status(400).send({ error: "Email is not found" });
+
+    // Check if password is correct
+    const validPass = await bcrypt.compare(password, user[0].password);
+    if (!validPass) return res.status(400).send({ error: "password is wrong" });
+
+    // Create and assign a token
+    const token = jwt.sign({ _id: user[0].id }, process.env.TOKEN_SECRET);
+    res.header('auth-token', token).send(token);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
