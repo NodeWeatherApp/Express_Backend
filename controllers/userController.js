@@ -35,7 +35,7 @@ exports.user_get_all = async (req, res, next) => {
   try {
     let [users, _] = await User.findAll();
 
-    res.status(200).json({ count: users.length, users });
+    res.status(200).json({ count: users.length, user: users });
   } catch (error) {
     console.log(error);
     next(error);
@@ -77,3 +77,5 @@ exports.user_login = async (req, res, next) => {
     next(error);
   }
 };
+
+// delete user

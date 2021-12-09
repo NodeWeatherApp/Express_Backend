@@ -1,20 +1,15 @@
 const express = require('express');
-const weatherController = require('../controllers/weatherController');
-
 const router = express.Router();
 
-//Swagger Doc WeatherForecast API
-/**
- *  @swagger
- *  /weather/data:
- *    get:
- *      description: Use to request all weather data
- *      responses:
- *        '200':
- *          description: A successful response
- */
+// Token authentication
+const verify = require("./verifyToken");
 
- // route GET and POST weather data
-// router.route("/data").get(weatherController.weather_data_get).post(weatherController.weather_data_post);
+// Import business logic
+const weatherController = require('../controllers/weatherController');
+
+// Middleware
+router.post("/generate", verify, weatherController.weather_generate);
+
+router.get("/retrieve",verify, weatherController.weather_get_all);
 
 module.exports = router;

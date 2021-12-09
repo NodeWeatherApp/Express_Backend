@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
 
-// token authentication
+// Token authentication
 const verify = require("./verifyToken");
 
-// Import Routes
+// Import business Logic
 const userController = require("../controllers/userController");
 
 var bodyParser = require("body-parser");
@@ -16,9 +16,9 @@ router.use(bodyParser.urlencoded({ extended: true }));
 // Middleware
 router.post("/signUp", userController.user_create);
 
-router.get("/retrieve" ,verify ,userController.user_get_all);
+router.get("/retrieve", verify, userController.user_get_all);
 
-router.get("/:id", userController.user_get_by_id);
+router.get("/:id", verify, userController.user_get_by_id);
 
 router.post("/login", userController.user_login);
 
