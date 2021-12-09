@@ -76,10 +76,6 @@ exports.user_login = async (req, res, next) => {
     console.log(error);
     next(error);
   }
-<<<<<<< HEAD
 };
 
 // delete user
-=======
-
->>>>>>> 7c0df7c931e713579bfbd7cc8a39aa936cc9ddd0

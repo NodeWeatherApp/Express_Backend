@@ -42,6 +42,12 @@
         "responses": {
           "201": {
             "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         }
       }
@@ -54,6 +60,12 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         }
       }
@@ -179,6 +191,27 @@
         "password": {
           "type": "string",
           "example": "test123"
+        }
+      }
+    },
+    "Weather": {
+      "type": "object",
+      "properties": {
+        "forecast": {
+          "type": "string",
+          "example": "Sunny"
+        },
+        "temperature": {
+          "type": "string",
+          "example": "85.0"
+        },
+        "date": {
+          "type": "string",
+          "example": "12-06-1972"
+        },
+        "created_at": {
+          "type": "string",
+          "example": "2021-12-8"
         }
       }
     }
