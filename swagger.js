@@ -27,12 +27,18 @@ const doc = {
       bearerFormat: "JWT",
     },
   },
-  security: [{ "Bearer": ["./routes/*.js"] }],
+  security: [{ Bearer: ["./routes/*.js"] }],
   definitions: {
     User: {
       email: "testswagger@getMaxListeners.com",
       username: "deion",
       password: "test123",
+    },
+    Weather: {
+      forecast: "Sunny",
+      temperature: "85.0",
+      date: "12-06-1972",
+      created_at: "2021-12-8",
     },
   },
 };
