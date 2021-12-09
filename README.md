@@ -1,2 +1,6 @@
 # Express_Backend
-To test apis w/ swagger go to localhost:5000/api-docs
+Autogenerate swagger documentation run this script in terminal at base of project: npm run start-gendoc
+
+To test apis w/ swagger go to localhost:3000/doc
+
+Start node server in development mode run: nodemon -L app.js
