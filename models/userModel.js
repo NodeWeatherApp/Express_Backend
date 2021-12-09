@@ -33,8 +33,6 @@ class User {
     return {user: {email: this.email, username: this.username, password: this.password, created_at: createdAtDate}};
   }
 
-  //make repository layer
-
   static findAll() {
     let sql = "SELECT * FROM users;";
 

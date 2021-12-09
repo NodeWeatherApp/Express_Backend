@@ -1,4 +1,4 @@
-function getRandomWeather(min, max) {
+function getRandomTemperature(min, max) {
   return Math.floor(Math.random() * (max - min) + min);
 }
 function getRandomForecast() {
@@ -35,15 +35,9 @@ function getDatetime() {
 
   return datetime;
 }
-function getID() {
-  return id++;
-}
-
-let id = 1;
 
 module.exports = {
-  getRandomWeather,
+  getRandomTemperature,
   getRandomForecast,
   getDatetime,
-  getID,
 };

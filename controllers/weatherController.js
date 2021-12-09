@@ -1,21 +1,31 @@
-const weatherHandler = require("../handlers/weatherHandler");
-// weather_data_get
-const weather = [];
+const randomWeather = require("../handlers/weatherHandler");
+const Weather = require("../models/weatherModel");
 
-const weather_data_get = (req, res) => {
-  const currentWeather = {
-    id: weatherHandler.getID(),
-    forecast: weatherHandler.getRandomForecast(),
-    temperature: weatherHandler.getRandomWeather(-20, 55),
-    date: weatherHandler.getDatetime(),
-  };
-  console.log(currentWeather);
-
-  weather.push(currentWeather);
-  JSON.stringify(weather);
-  res.status(200).send(weather);
+exports.weather_generate = async (req, res, next) => {
+  try {
+    // Create weather object
+    const weather = new Weather(
+      randomWeather.getRandomForecast(),
+      randomWeather.getRandomTemperature(10,50),
+      randomWeather.getDatetime()
+    );
+    const savedWeather = await weather.save();
+    console.log(savedWeather);
+    // JSON.stringify(weather);
+    res.status(201).json({ message: "weather saved", response: savedWeather });
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
 };
 
-module.exports = {
-  weather_data_get,
+exports.weather_get_all = async (req, res, next) => {
+  try {
+    let [weatherData, _] = await Weather.findAll();
+
+    res.status(200).json({ count: weatherData.length, data: weatherData });
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
 };
