@@ -4,7 +4,7 @@ const Joi = require("joi");
 // SignUp Validation
 const signUpValidation = (data) => {
   const schema = Joi.object().keys({
-    email: Joi.string().min(6).required().email(),
+    email: Joi.string().min(5).required().email(),
     username: Joi.string().min(4).required(),
     password: Joi.string().min(6).required(),
   });

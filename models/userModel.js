@@ -6,6 +6,22 @@ class User {
     this.username = username;
     this.password = password;
   }
+  static findAll() {
+    let sql = "SELECT * FROM users;";
+
+    return db.execute(sql);
+  }
+
+  static findOne(email) {
+    return db.execute('SELECT * FROM `users` WHERE `email` = ?;',
+    [`${email}`]);
+  }
+
+  static findById(id) {
+    let sql = `SELECT * FROM users WHERE id = ${id};`;
+
+    return db.execute(sql);
+  }
 
   save() {
     let d = new Date();
@@ -29,25 +45,11 @@ class User {
             "${createdAtDate}"
         );`;
 
+    
     db.execute(sql);
-    return {user: {email: this.email, username: this.username, password: this.password, created_at: createdAtDate}};
-  }
-
-  static findAll() {
-    let sql = "SELECT * FROM users;";
-
-    return db.execute(sql);
-  }
-
-  static findOne(email) {
-    return db.execute('SELECT * FROM `users` WHERE `email` = ?;',
-    [`${email}`]);
-  }
-
-  static findById(id) {
-    let sql = `SELECT * FROM users WHERE id = ${id};`;
-
-    return db.execute(sql);
+    
+    //get user id
+    return  User.findOne(this.email);
   }
 }
 
