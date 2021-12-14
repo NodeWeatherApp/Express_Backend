@@ -1,7 +1,7 @@
 const User = require("../models/userModel");
 const { response } = require("express");
-const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const createToken = require("../handlers/token/createToken");
 
 // Validation
 const { signUpValidation, loginValidation } = require("../validation");
@@ -11,7 +11,7 @@ exports.user_create = async (req, res, next) => {
     // Validate data for user creation
     signUpValidation(req.body);
     const { email, username, password } = req.body;
-
+    console.log(email, username, password);
     // Check if the user is already in the database
     const [foundUser, _] = await User.findOne(email);
     if (foundUser.length > 0)
@@ -23,8 +23,14 @@ exports.user_create = async (req, res, next) => {
 
     // Create a new user
     let user = new User(email, username, hashedPassword);
-    const savedUser = await user.save();
-    res.status(201).json({ message: "User created", response: savedUser });
+    const [savedUser, __] = await user.save();
+
+    // Create and assign a token
+    const token = createToken(savedUser[0].id);
+
+    res
+      .status(201)
+      .json({ message: "User created", response: savedUser, token: token });
   } catch (error) {
     console.log(error);
     next(error);
@@ -70,8 +76,19 @@ exports.user_login = async (req, res, next) => {
     if (!validPass) return res.status(400).send({ error: "password is wrong" });
 
     // Create and assign a token
-    const token = jwt.sign({ _id: user[0].id }, process.env.TOKEN_SECRET);
-    res.header('auth-token', token).send(token);
+    const token = createToken(user[0].id);
+    res
+      .header("auth-token", token)
+      .send({ username: user[0].username, token: token });
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
+
+exports.user_logout = async (req, res, next) => {
+  try {
+    res.send({token: ""}); //force token to expire, replace w/ empty token
   } catch (error) {
     console.log(error);
     next(error);
