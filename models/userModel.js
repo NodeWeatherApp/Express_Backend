@@ -51,7 +51,6 @@ class User {
     //get user id
     return  User.findOne(this.email);
   }
-
 }
 
 module.exports = User;
