@@ -94,5 +94,3 @@ exports.user_logout = async (req, res, next) => {
     next(error);
   }
 };
-
-// delete user

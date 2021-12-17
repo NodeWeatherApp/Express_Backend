@@ -34,25 +34,41 @@
     "application/x-www-form-urlencoded"
   ],
   "paths": {
-    "/weather/generate": {
+    "/weather/create": {
       "post": {
         "tags": [],
         "description": "",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "forecast": {
+                  "example": "any"
+                },
+                "temperature": {
+                  "example": "any"
+                },
+                "date": {
+                  "example": "any"
+                },
+                "locationId": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
         "responses": {
           "201": {
             "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
           }
         }
       }
     },
-    "/weather/retrieve": {
+    "/weather/": {
       "get": {
         "tags": [],
         "description": "",
