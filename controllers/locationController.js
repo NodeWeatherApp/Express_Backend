@@ -4,7 +4,7 @@ exports.location_get_all = async (req, res, next) => {
   Location.findAll()
     .then((location) => {
       console.log(location);
-      res.status(200).json({ response: "success" });
+      res.status(200).json({ response: "success", location: location });
     })
     .catch((err) => console.log(err));
 };

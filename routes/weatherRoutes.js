@@ -8,8 +8,8 @@ const verify = require("../handlers/token/verifyToken");
 const weatherController = require('../controllers/weatherController');
 
 // Middleware
-router.post("/create", weatherController.weather_create);
+router.get("/:locationId", weatherController.weather_get_all);
 
-// router.get("/",verify, weatherController.weather_get_all);
+router.post("/create", weatherController.weather_create);
 
 module.exports = router;

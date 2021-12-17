@@ -34,6 +34,25 @@
     "application/x-www-form-urlencoded"
   ],
   "paths": {
+    "/weather/{locationId}": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "locationId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/weather/create": {
       "post": {
         "tags": [],
@@ -120,11 +139,15 @@
             }
           }
         ],
-        "responses": {}
+        "responses": {
+          "400": {
+            "description": "Bad Request"
+          }
+        }
       }
     },
     "/user/logout": {
-      "get": {
+      "post": {
         "tags": [],
         "description": "",
         "parameters": [],
@@ -230,90 +253,6 @@
           }
         }
       }
-    },
-    "/location/create": {
-      "post": {
-        "tags": [],
-        "description": "",
-        "parameters": [
-          {
-            "name": "obj",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "country": {
-                  "example": "any"
-                },
-                "state": {
-                  "example": "any"
-                },
-                "city": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Created"
-          }
-        }
-      }
-    },
-    "/location/delete/{id}": {
-      "delete": {
-        "tags": [],
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/location/edit": {
-      "put": {
-        "tags": [],
-        "description": "",
-        "parameters": [
-          {
-            "name": "obj",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "country": {
-                  "example": "any"
-                },
-                "city": {
-                  "example": "any"
-                },
-                "state": {
-                  "example": "any"
-                },
-                "id": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
     }
   },
   "definitions": {
@@ -322,15 +261,32 @@
       "properties": {
         "email": {
           "type": "string",
-          "example": "testswagger@getMaxListeners.com"
+          "example": "test@gmail.com"
         },
         "username": {
           "type": "string",
-          "example": "deion"
+          "example": "test1"
         },
         "password": {
           "type": "string",
-          "example": "test123"
+          "example": "password"
+        }
+      }
+    },
+    "Location": {
+      "type": "object",
+      "properties": {
+        "country": {
+          "type": "string",
+          "example": "USA"
+        },
+        "state": {
+          "type": "string",
+          "example": "CA"
+        },
+        "city": {
+          "type": "string",
+          "example": "San Francisco"
         }
       }
     },
@@ -348,10 +304,6 @@
         "date": {
           "type": "string",
           "example": "12-06-1972"
-        },
-        "created_at": {
-          "type": "string",
-          "example": "2021-12-8"
         }
       }
     }

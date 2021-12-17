@@ -1,5 +1,3 @@
-const { getMaxListeners } = require("./config/db");
-
 const swaggerAutogen = require("swagger-autogen")();
 
 const doc = {
