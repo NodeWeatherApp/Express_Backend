@@ -53,6 +53,16 @@ db.authenticate()
     console.error("Unable to connect to the database:", error);
   });
 
+// synchronize models to database
+db.sync({ alter: true, force: true })
+  .then(() => {
+    console.log("All models were synchronized successfully");
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+
 // listen on port
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
