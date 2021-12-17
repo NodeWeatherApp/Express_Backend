@@ -12,8 +12,10 @@ exports.weather_create = async (req, res, next) => {
     locationId,
   })
     .then(console.log(weather))
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log(err);
+      next(err);
+    });
 
   res.status(201).json({ created: weather.dataValues });
 };
-
