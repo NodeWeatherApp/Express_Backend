@@ -1,5 +1,5 @@
 const randomWeather = require("../handlers/weatherHandler");
-const Weather = require("../models/weatherModel");
+const Weather = require("../models/Weather");
 
 exports.weather_generate = async (req, res, next) => {
   try {

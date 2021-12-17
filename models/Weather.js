@@ -13,4 +13,5 @@ const Weather = db.define("weather", {
   },
 });
 
+
 module.exports = Weather;
