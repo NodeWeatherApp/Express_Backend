@@ -15,4 +15,5 @@ router.post("/create", locationController.location_create);
 router.delete("/delete/:id", locationController.location_delete);
 
 router.put("/edit", locationController.location_update);
+
 module.exports = router;
