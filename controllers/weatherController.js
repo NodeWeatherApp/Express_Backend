@@ -19,3 +19,4 @@ exports.weather_create = async (req, res, next) => {
 
   res.status(201).json({ created: weather.dataValues });
 };
+
