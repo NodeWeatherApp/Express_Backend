@@ -50,20 +50,26 @@ exports.user_login = async (req, res, next) => {
     const { email, password } = req.body;
 
     // Check if user exists
-    const user = await User.findOne({where: {email : email}});
-    if (user == null){
-      return res.status(400).send({ error: "Email not found"});
+    const user = await User.findOne({ where: { email: email } });
+    if (user == null) {
+      return res.status(400).send({ error: "Email not found" });
     }
-    
+
     // Check if password is correct
-    const validPassword = await bcrypt.compare(password, user.dataValues.password);
-    if (!validPassword) return res.status(400).send({ error: "password is wrong" });
-   
+    const validPassword = await bcrypt.compare(
+      password,
+      user.dataValues.password
+    );
+    if (!validPassword)
+      return res.status(400).send({ error: "password is wrong" });
+
     // Create and assign a token
     const token = createToken(user.dataValues.id);
-    res
-      .header("auth-token", token)
-      .send({ res: "logging in", username: user.dataValues.username, token: token });
+    res.header("auth-token", token).send({
+      res: "logging in",
+      username: user.dataValues.username,
+      token: token,
+    });
   } catch (error) {
     console.log(error);
     next(error);
@@ -72,9 +78,20 @@ exports.user_login = async (req, res, next) => {
 
 exports.user_logout = async (req, res, next) => {
   try {
-    res.send({ token: "" }); //force token to expire, replace w/ empty token
+    res.status(200).header("jwt", "").send({ token: "",auth: false }); //force token to expire, replace w/ empty token
   } catch (error) {
     console.log(error);
     next(error);
   }
+};
+
+exports.user_check_login = async (req, res, next) => {
+  // try {
+  //   res
+  //     .status(201)
+  //     .json({ message: "logged in" });
+  // } catch (err) {
+  //   console.log(err);
+  //   next(err);
+  // }
 };

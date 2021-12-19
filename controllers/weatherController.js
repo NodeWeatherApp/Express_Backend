@@ -26,6 +26,7 @@ exports.weather_create = async (req, res, next) => {
 };
 
 exports.weather_get_all = async (req, res, next) => {
+  console.log("here")
   Weather.findAll({
     where: {
       locationId: req.params.locationId,

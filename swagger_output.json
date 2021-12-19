@@ -49,6 +49,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
           }
         }
       }
@@ -81,8 +84,14 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "OK"
+          },
           "201": {
             "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
           }
         }
       }
@@ -139,7 +148,11 @@
             }
           }
         ],
-        "responses": {}
+        "responses": {
+          "400": {
+            "description": "Bad Request"
+          }
+        }
       }
     },
     "/user/logout": {
@@ -154,33 +167,26 @@
         }
       }
     },
-    "/location/edit": {
-      "put": {
+    "/user/isLoggedIn": {
+      "post": {
         "tags": [],
         "description": "",
-        "parameters": [
-          {
-            "name": "obj",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "country": {
-                  "example": "any"
-                },
-                "city": {
-                  "example": "any"
-                },
-                "state": {
-                  "example": "any"
-                },
-                "id": {
-                  "example": "any"
-                }
-              }
-            }
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
           }
-        ],
+        }
+      }
+    },
+    "/location/": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
         "responses": {
           "200": {
             "description": "OK"

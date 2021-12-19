@@ -2,9 +2,9 @@ const Location = require("../models/Location");
 
 exports.location_get_all = async (req, res, next) => {
   Location.findAll()
-    .then((location) => {
-      console.log(location);
-      res.status(200).json({ response: "success", location: location });
+    .then((locations) => {
+      console.log(locations);
+      res.status(200).json({ response: "success", locations: locations });
     })
     .catch((err) => console.log(err));
 };
