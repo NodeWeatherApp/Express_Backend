@@ -20,4 +20,6 @@ router.post("/login", userController.user_login);
 
 router.post("/logout", userController.user_logout);
 
+router.post("/isLoggedIn", verify, userController.user_check_login);
+
 module.exports = router;

@@ -32,8 +32,40 @@ exports.weather_get_all = async (req, res, next) => {
     },
   })
     .then((weather) => {
-      console.log(weather);
+      // console.log(weather);
       res.status(200).json({ response: "success", weather: weather });
     })
     .catch((err) => console.log(err));
 };
+
+exports.weather_update = async (req, res, next) => {
+  const { forecast, temperature, date } = req.body;
+  console.log(req.body);
+  Weather.update(
+    {
+      forecast,
+      temperature,
+    },
+    {
+      where: {
+        date: date
+      },
+    }
+  )
+    .then(() => res.send("successfully updated"))
+    .catch((err) => {
+      res.status(400);
+      next(err);
+      console.log(err);
+    });
+};
+
+exports.weather_delete = async (req, res, next) => {
+  Weather.destroy({
+    where: {
+      id: req.params.id,
+    },
+  }).then(() => res.send("success"));
+};
+
+
