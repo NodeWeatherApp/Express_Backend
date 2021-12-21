@@ -3,23 +3,11 @@ require("dotenv").config();
 const Sequelize = require("sequelize");
 
 module.exports = new Sequelize(
-  `${process.env.DB_NAME}`,
-  `${process.env.DB_USER}`,
-  `${process.env.DB_PASSWORD}`,
+  `${heroku_5cff7007787fc23}`,
+  `${b42e921b82cdf9}`,
+  `${c89424bf}`,
   {
-    host: `${process.env.DB_HOST}`,
+    host: `${us-cdbr-east-05.cleardb.net}`,
     dialect: "mysql",
   }
 );
-
-
-// const mysql = require("mysql2");
-
-// const pool = mysql.createPool({
-//   host: process.env.DB_HOST,
-//   user: process.env.DB_USER,
-//   database: process.env.DB_NAME,
-//   password: process.env.DB_PASSWORD,
-// });
-
-// module.exports = pool.promise();
