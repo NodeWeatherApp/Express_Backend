@@ -6,7 +6,7 @@
     "description": "Customer API Information",
     "contact": {
       "name": "Deion Shallenberger",
-      "email": "deion.shallenberger.1720@my.csun.edu"
+      "email": "deion.shallenberger.170@my.csun.edu"
     }
   },
   "host": "https://node-mysql-deploy-heroku.herokuapp.com",
@@ -49,6 +49,12 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         }
       }
