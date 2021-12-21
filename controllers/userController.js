@@ -29,9 +29,9 @@ exports.user_create = async (req, res, next) => {
         console.log(err);
         next(err);
       });
-      
+      console.log(savedUser)
     // Create and assign a token
-    const token = createToken(savedUser.id);
+    const token = createToken(savedUser.dataValues.id);
 
     res
       .status(201)
