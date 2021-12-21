@@ -8,8 +8,8 @@ const verify = require("../handlers/token/verifyToken");
 const locationController = require("../controllers/locationController");
 
 // Middleware
-router.get("/", verify, locationController.location_get_all);
+router.get("/",  locationController.location_get_all);
 
-router.post("/create", locationController.location_create);
+router.post("/create", verify, locationController.location_create);
 
 module.exports = router;
