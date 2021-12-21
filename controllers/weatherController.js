@@ -18,7 +18,7 @@ exports.weather_create = async (req, res, next) => {
         console.log(err);
         next(err);
       });
-
+    console.log({weather: weather.dataValues})
     res.status(201).json({ created: weather.dataValues });
   } catch (error) {
     console.log(error);
