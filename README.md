@@ -8,3 +8,5 @@ Start node server in development mode run: nodemon -L app.js
 Using Joi for validation in validation.js. Write and assert tests to schema here.
 
 setup .env file that contains mysql database details and token secret
+## Backend Swagger deployment link
+https://node-mysql-deploy-heroku.herokuapp.com/doc/
