@@ -9,7 +9,7 @@
       "email": "deion.shallenberger.170@my.csun.edu"
     }
   },
-  "host": "localhost:3000",
+  "host": "https://node-mysql-deploy-heroku.herokuapp.com",
   "basePath": "/",
   "tags": [],
   "schemes": [

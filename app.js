@@ -32,7 +32,7 @@ app.use("/location", locationRoutes);
 app.use(
   "/api",
   createProxyMiddleware({
-    target: "http://localhost:3000/", //original url
+    target: "https://node-mysql-deploy-heroku.herokuapp.com/", //original url
     changeOrigin: true,
     //secure: false,
     onProxyRes: function (proxyRes, req, res) {

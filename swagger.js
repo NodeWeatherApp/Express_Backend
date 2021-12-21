@@ -10,7 +10,7 @@ const doc = {
       email: "deion.shallenberger.170@my.csun.edu",
     },
   },
-  host: "localhost:3000",
+  host: "https://node-mysql-deploy-heroku.herokuapp.com",
   basePath: "/",
   schemes: ["http"],
   consumes: ["application/json", "application/x-www-form-urlencoded"],
