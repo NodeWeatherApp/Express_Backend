@@ -12,7 +12,7 @@ const doc = {
   },
   host: "https://node-mysql-deploy-heroku.herokuapp.com",
   basePath: "/",
-  schemes: ["htts"],
+  schemes: ["https"],
   consumes: ["application/json", "application/x-www-form-urlencoded"],
   produces: ["application/json", "application/x-www-form-urlencoded"],
   securityDefinitions: {

@@ -54,7 +54,7 @@ db.authenticate()
   });
 
 // synchronize models to database
-db.sync({alter: true, force: true})
+db.sync({})
   .then(() => {
     console.log("All models were synchronized successfully");
   })
