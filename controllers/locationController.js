@@ -1,12 +1,18 @@
 const Location = require("../models/Location");
+const makeLocationDTO = require("../DTO/LocationDTO");
 
 exports.location_get_all = async (req, res, next) => {
-  Location.findAll()
+  Location.findAll({
+    raw: true,
+  })
     .then((locations) => {
-      console.log(locations);
-      res.status(200).json({ response: "success", locations: locations });
+      const locationDTO = makeLocationDTO(locations);
+      res.status(200).json({ response: "success", locations: locationDTO });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      next(err);
+      console.log(err);
+    });
 };
 
 exports.location_create = async (req, res, next) => {

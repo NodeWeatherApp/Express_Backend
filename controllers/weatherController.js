@@ -1,5 +1,6 @@
 const randomWeather = require("../handlers/weatherHandler");
 const Weather = require("../models/Weather");
+const makeWeatherDTO = require("../DTO/WeatherDTO");
 
 exports.weather_create = async (req, res, next) => {
   try {
@@ -30,12 +31,19 @@ exports.weather_get_all = async (req, res, next) => {
     where: {
       locationId: req.params.locationId,
     },
+    raw: true,
   })
     .then((weather) => {
-      // console.log(weather);
-      res.status(200).json({ response: "success", weather: weather });
+      const weatherDTO = makeWeatherDTO(weather);
+      res.status(200).json({
+        response: "success",
+        weather: weatherDTO,
+      });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log(err);
+      next(err);
+    });
 };
 
 exports.weather_update = async (req, res, next) => {
@@ -48,7 +56,7 @@ exports.weather_update = async (req, res, next) => {
     },
     {
       where: {
-        date: date
+        date: date,
       },
     }
   )
@@ -67,5 +75,3 @@ exports.weather_delete = async (req, res, next) => {
     },
   }).then(() => res.send("success"));
 };
-
-
